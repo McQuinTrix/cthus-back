@@ -1,0 +1,25 @@
+{
+  "name": "cthus-back",
+  "version": "0.0.1",
+  "description": "Cryptonthus backend",
+  "main": "server.js",
+  "scripts": {
+    "test": "node server",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/McQuinTrix/cthus-back.git"
+  },
+  "author": "McQuinTrix",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/McQuinTrix/cthus-back/issues"
+  },
+  "homepage": "https://github.com/McQuinTrix/cthus-back#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "mongoose": "^4.13.5"
+  }
+}
