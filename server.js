@@ -9,7 +9,7 @@ var express = require('express'),
 
 //database config
 
-mongoose.connect("mongodb://heroku_h86dbp94:passwordforh86dbp94@ds147681.mlab.com:47681/heroku_h86dbp94")
+mongoose.connect("mongodb://heroku_h86dbp94:23lqki7gjgpht4q7u1h0ti9gae@ds147681.mlab.com:47681/heroku_h86dbp94")
 
 var BTCSchema = require('./models/btc-schema');
 
@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
 
 //Setting the port
-var port = process.env.PORT || 8000;
+var port = process.env.PORT || 8001;
 
 //API Routes
 var router = express.Router();
@@ -39,7 +39,9 @@ router.route('/btc')
     .post(function(req,res){
         var btc = new BTCSchema();
         btc.date = moment().millisecond();
-        btc.value = req.body.name;
+        btc.value = req.body.value;
+
+        console.log(btc,req);
 
         btc.save(function (err) {
             if(err){
