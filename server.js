@@ -5,11 +5,12 @@ var express = require('express'),
     app = express(),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
-    moment = require('moment');
+    moment = require('moment'),
+    config = require('./models/config');
 
 //database config
 
-mongoose.connect("mongodb://heroku_h86dbp94:23lqki7gjgpht4q7u1h0ti9gae@ds147681.mlab.com:47681/heroku_h86dbp94")
+mongoose.connect(config.dbStr);
 
 var BTCSchema = require('./models/btc-schema');
 
@@ -38,7 +39,7 @@ router.get('/', function(req,res){
 router.route('/btc')
     .post(function(req,res){
         var btc = new BTCSchema();
-        btc.date = moment().millisecond();
+        btc.date = moment().valueOf();
         btc.value = req.body.value;
 
         console.log(btc,req);
