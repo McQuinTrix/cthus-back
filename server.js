@@ -85,7 +85,8 @@ router.route('/btc/:btc_id')
                 res.json({message: 'Value Saved', isSuccess: true})
             })
         })
-    }).delete(function(req,res){
+    })
+    .delete(function(req,res){
         BTCSchema.remove({
             _id: req.params.btc_id
         }, function (err,bear) {
@@ -94,7 +95,93 @@ router.route('/btc/:btc_id')
             }
             res.json({message: 'Value Deleted', isSuccess: true})
         })
-})
+    });
+
+//Email Sign In/Up
+var Account = require('./models/account');
+
+router.route('/signup')
+    .post(function(req,res){
+        var json = req.body,
+            acc = new Account();
+        
+        acc.email = json.email;
+        acc.password = json.password;
+        acc.pin = json.pin || "";
+        acc.fname = json.fname || "";
+        acc.lname = json.lname || "";
+        acc.date = moment().valueOf();
+        acc.lastUpdate = moment.valueOf();
+
+        console.log(json);
+        //Find if email already exists
+        Account.findByEmail(json.email,function (err,data) {
+            console.log(data);
+            if(data.length === 0){
+                acc.save(function (err) {
+                    if(err){
+                        res.send({"error":err,isSuccess: false});
+                    }
+                    res.json({message: 'Value Saved', isSuccess: true})
+                })
+            }else{
+                res.json({message: 'Email Already Registered!', isSuccess: true})
+            }
+            if(err){
+                res.send({err:err, isSuccess: false})
+            }
+        });
+    })
+    .get(function(req,res){
+        Account.find(function(err,data){
+            if(err){
+                res.send({err: err,isSuccess: false})
+            }
+            res.json(data);
+        })
+    });
+
+    //Get/Update/Delete userInfo
+router.route('/userInfo')
+        .post(function(req,res){
+            Account.findByEmail(req.body.email, function (err,data) {
+                if(err){
+                    res.send({err:err, isSuccess: false})
+                }
+                res.json({data:data,isSuccess: true});
+            })
+        })
+        .put(function(res,req){
+            var json = req.body;
+            Account.findByEmail(req.body.email, function (err,data) {
+                if(err){
+                    res.send({err:err, isSuccess: false})
+                }
+
+                data.password = json.password;
+                data.pin = json.pin || "";
+                data.fname = json.fname || "";
+                data.lname = json.lname || "";
+                data.lastUpdate = moment.valueOf();
+    
+                btc.save(function(err){
+                    if(err){
+                        res.send({err:err, isSuccess: false})
+                    }
+                    res.json({message: 'Value Saved', isSuccess: true})
+                })
+            })
+        })
+        .delete(function(res,req){
+            Account.remove({
+                email: req.body.email
+            }, function (err,bear) {
+                if(err){
+                    res.send({err:err, isSuccess: false})
+                }
+                res.json({message: 'Value Deleted', isSuccess: true})
+            })
+        });
 
 //Registering our routes
 app.use('/api',router);
