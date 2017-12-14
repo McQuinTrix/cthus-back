@@ -100,6 +100,12 @@ router.route('/btc/:btc_id')
 //Email Sign In/Up
 var Account = require('./models/account');
 
+//--------------------------
+//--------------------------
+//Create User
+//--------------------------
+//--------------------------
+
 router.route('/signup')
     .post(function(req,res){
         var json = req.body,
@@ -132,16 +138,12 @@ router.route('/signup')
             }
         });
     })
-    .get(function(req,res){
-        Account.find(function(err,data){
-            if(err){
-                res.send({err: err,isSuccess: false})
-            }
-            res.json(data);
-        })
-    });
 
-    //Get/Update/Delete userInfo
+//--------------------------
+//--------------------------
+//Get/Update/Delete userInfo
+//--------------------------
+//--------------------------
 router.route('/userInfo')
         .post(function(req,res){
             Account.findByEmail(req.body.email, function (err,data) {
@@ -182,6 +184,9 @@ router.route('/userInfo')
                 res.json({message: 'Value Deleted', isSuccess: true})
             })
         });
+
+//End userInfo
+/****************************/
 
 //Registering our routes
 app.use('/api',router);
