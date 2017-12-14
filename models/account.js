@@ -11,8 +11,8 @@ var Account = new Schema({
     pin: String,
     fname: String,
     lname: String,
-    date: Number,
-    lastUpdate: Number
+    date: String,
+    lastUpdate: String
 });
 
 Account.statics.findByEmail = function(email, callback) {
