@@ -163,7 +163,7 @@ router.route('/userInfo')
                             fname: data[0].fname,
                             lname: data[0].lname,
                             message: "Request Successful",
-                            userId: data._id
+                            userId: data[0]._id
                         },
                         isSuccess: true
                     });
