@@ -171,7 +171,8 @@ router.route('/userInfo')
                     res.json({
                         data:{
                             userId: data._id,
-                            message: "Password incorrect!"
+                            message: "Password incorrect!",
+                            data: data
                         },
                         isSuccess: false
                     });
