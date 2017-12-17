@@ -150,7 +150,15 @@ router.route('/userInfo')
                 if(err){
                     res.send({err:err, isSuccess: false})
                 }
-                res.json({data:data,isSuccess: true});
+
+                res.json({
+                    data:{
+                        fname: data.fname,
+                        lname: data.lname,
+                        userId: data._id
+                    },
+                    isSuccess: true
+                });
             })
         })
         .put(function(res,req){
