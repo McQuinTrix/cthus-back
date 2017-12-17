@@ -148,17 +148,35 @@ router.route('/userInfo')
         .post(function(req,res){
             Account.findByEmail(req.body.email, function (err,data) {
                 if(err){
-                    res.send({err:err, isSuccess: false})
+                    res.send({
+                        data:{
+                            message: "Error Encountered"
+                        },
+                        isSuccess: false,
+                        error: err
+                    })
                 }
 
-                res.json({
-                    data:{
-                        fname: data.fname,
-                        lname: data.lname,
-                        userId: data._id
-                    },
-                    isSuccess: true
-                });
+                if(req.body.password === data.password){
+                    res.json({
+                        data:{
+                            fname: data.fname,
+                            lname: data.lname,
+                            message: "Request Successful",
+                            userId: data._id
+                        },
+                        isSuccess: true
+                    });
+                }else{
+                    res.json({
+                        data:{
+                            userId: data._id,
+                            message: "Password incorrect!"
+                        },
+                        isSuccess: false
+                    });
+                }
+
             })
         })
         .put(function(res,req){
