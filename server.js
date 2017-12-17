@@ -157,11 +157,11 @@ router.route('/userInfo')
                     })
                 }
 
-                if(req.body.password === data.password){
+                if(req.body.password === data[0].password){
                     res.json({
                         data:{
-                            fname: data.fname,
-                            lname: data.lname,
+                            fname: data[0].fname,
+                            lname: data[0].lname,
                             message: "Request Successful",
                             userId: data._id
                         },
@@ -170,9 +170,8 @@ router.route('/userInfo')
                 }else{
                     res.json({
                         data:{
-                            userId: data._id,
-                            message: "Password incorrect!",
-                            data: data
+                            userId: data[0]._id,
+                            message: "Password incorrect!"
                         },
                         isSuccess: false
                     });
