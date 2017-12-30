@@ -214,6 +214,38 @@ router.route('/userInfo')
 //End userInfo
 /****************************/
 
+//--------------------------
+//--------------------------
+//Get/Update/Delete User BTC/ETH Account
+//--------------------------
+//--------------------------
+
+//Email Sign In/Up
+var PSchema = require('./models/portfolio');
+
+router.route('/portfolio')
+    .post(function(req,res){
+        var json = req.body,
+            pAcc = new PSchema();
+
+        pAcc.date = moment().valueOf();
+        pAcc.value = json.value;
+        pAcc.userId = json.userId;
+        pAcc.type = json.type;
+
+        console.log(pAcc,PSchema);
+
+        pAcc.save(function (err) {
+            if(err){
+                res.send({"error":err,isSuccess: false});
+            }
+            res.json({message: 'Value Saved', isSuccess: true})
+        })
+    });
+
+//End userInfo
+/****************************/
+
 //Registering our routes
 app.use('/api',router);
 
