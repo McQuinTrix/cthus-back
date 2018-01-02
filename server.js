@@ -281,7 +281,7 @@ router.route('/get-values/:type')
             if(err){
                 res.send({err:err, isSuccess: false})
             }
-            
+
             data = data.map(function (val,ind) {
                 return {
                     value: val.value,
