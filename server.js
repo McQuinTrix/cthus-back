@@ -220,7 +220,7 @@ router.route('/userInfo')
 //--------------------------
 //--------------------------
 
-//Email Sign In/Up
+//Portfolio save
 var PSchema = require('./models/portfolio');
 
 router.route('/portfolio')
@@ -233,13 +233,64 @@ router.route('/portfolio')
         pAcc.userId = json.userId;
         pAcc.type = json.type;
 
-        console.log(pAcc,PSchema);
-
         pAcc.save(function (err) {
+            console.log(err);
             if(err){
                 res.send({"error":err,isSuccess: false});
             }
             res.json({message: 'Value Saved', isSuccess: true})
+        })
+    });
+router.route('/portfolio/:id').get(function (req,res) {
+        PSchema.findByUser(req.params.id, function (err,data) {
+            if(err){
+                res.send({err:err, isSuccess: false})
+            }
+
+            console.log(data);
+            res.json({result:data})
+        })
+    });
+
+/*
+ Daily Save for coin save
+ */
+var DailySchema = require('./models/daily-value');
+
+router.route('/daily-save')
+    .post(function(req,res){
+        var json = req.body,
+            daily = new DailySchema();
+
+        daily.date = moment().valueOf();
+        daily.value = json.value;
+        daily.type = json.type.toLowerCase();
+
+
+        daily.save(function (err) {
+            if(err){
+                res.send({"error":err,isSuccess: false});
+            }
+            res.json({message: 'Value Saved', isSuccess: true})
+        })
+    });
+
+router.route('/get-values/:type')
+    .get(function (req,res){
+        DailySchema.findByType(req.params.type, function (err,data) {
+            if(err){
+                res.send({err:err, isSuccess: false})
+            }
+            
+            data = data.map(function (val,ind) {
+                return {
+                    value: val.value,
+                    date: val.date
+                }
+            });
+
+            //Respond
+            res.json({type: req.params.type, result:data})
         })
     });
 
