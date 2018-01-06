@@ -6,7 +6,45 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
     moment = require('moment'),
-    config = require('./models/config');
+    config = require('./models/config'),
+    request = require('request'),
+    time = 1000*60*60;
+
+var j = setInterval(function () {
+    saveCoin("eth");
+    saveCoin("btc");
+},3000);
+
+function saveCoin(type){
+    console.log(type);
+    switch(type){
+        case "btc":
+            callAPI('https://api.gemini.com/v1/pubticker/btcusd',type);
+            break;
+        case "eth":
+            callAPI('https://api.gemini.com/v1/pubticker/ethusd',type);
+            break;
+    }
+}
+
+function callAPI(url,type){
+    request({
+        method: 'GET',
+        uri: url,
+        gzip: true
+    }, function(error, response, body){
+
+        var resp = JSON.parse(body);
+
+        console.log(resp,type);
+
+        request({
+            uri:'https://cryptonthus.herokuapp.com/api/daily-save',
+            method: 'POST',
+            json: {"value": resp.last, "type": type }
+        })
+    })
+}
 
 //database config
 
