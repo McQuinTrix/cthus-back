@@ -8,12 +8,12 @@ var express = require('express'),
     moment = require('moment'),
     config = require('./models/config'),
     request = require('request'),
-    time = 1000*60*60;
+    time = 1000*60*20;
 
 var j = setInterval(function () {
     saveCoin("eth");
     saveCoin("btc");
-},3000);
+},time);
 
 function saveCoin(type){
     console.log(type);
