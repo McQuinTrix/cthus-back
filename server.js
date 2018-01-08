@@ -224,10 +224,10 @@ router.route('/userInfo')
                     res.send({err:err, isSuccess: false})
                 }
 
-                data.password = json.password;
+                data.password = json.password || data.password;
                 data.pin = json.pin || "";
-                data.fname = json.fname || "";
-                data.lname = json.lname || "";
+                data.fname = json.fname || data.fname;
+                data.lname = json.lname || data.lname;
                 data.lastUpdate = moment.valueOf();
     
                 btc.save(function(err){
@@ -278,7 +278,8 @@ router.route('/portfolio')
             }
             res.json({message: 'Value Saved', isSuccess: true})
         })
-    });
+    })
+
 router.route('/portfolio/:id').get(function (req,res) {
         PSchema.findByUser(req.params.id, function (err,data) {
             if(err){
