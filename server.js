@@ -67,6 +67,7 @@ var router = express.Router();
 //middleware to intercept and stuff
 router.use(function (req,res,next) {
    console.log('**Something up**');
+   res.header("Access-Control-Allow-Origin", "*");
    next();
 });
 
