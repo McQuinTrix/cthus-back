@@ -8,14 +8,13 @@ var mongoose = require('mongoose'),
     Schema   = mongoose.Schema;
 
 var PortfolioSchema = new Schema({
-    value: String,
     date: String,
-    type: String,
-    userId: String
+    userId: String,
+    coins: Array
 });
 
 PortfolioSchema.statics.findByUser = function(userId, callback) {
-    return this.find({ userId: userId }, callback);
+    return this.find({ userId: userId }, callback).sort({$natural:-1}).limit(1);
 };
 
 module.exports = mongoose.model('PSchema', PortfolioSchema);

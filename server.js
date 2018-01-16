@@ -59,7 +59,7 @@ app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
 
 //Setting the port
-var port = process.env.PORT || 8001;
+var port = process.env.PORT || 8000;
 
 //API Routes
 var router = express.Router();
@@ -163,11 +163,26 @@ router.route('/signup')
         Account.findByEmail(json.email,function (err,data) {
             console.log(data);
             if(data.length === 0){
-                acc.save(function (err) {
+                acc.save(function (err,product) {
                     if(err){
                         res.send({"error":err,isSuccess: false});
                     }
-                    res.json({message: 'Value Saved', isSuccess: true})
+
+                    var pAcc = new PSchema();
+
+                    pAcc.date = moment().valueOf();
+                    pAcc.userId = product._id;
+                    pAcc.coins = [];
+
+                    pAcc.save(function (err) {
+                        console.log(err);
+                        if(err){
+                            res.send({"error":err,isSuccess: false});
+                        }
+                        //res.json({message: 'Value Saved', isSuccess: true})
+                    });
+
+                    res.json({message: 'Value Saved', isSuccess: true});
                 })
             }else{
                 res.json({message: 'Email Already Registered!', isSuccess: true})
@@ -267,21 +282,59 @@ router.route('/portfolio')
         var json = req.body,
             pAcc = new PSchema();
 
+        /**
+         * {
+         *  userId: "",
+         *  type: "",
+         *  value: ""
+         * }
+         */
+
         pAcc.date = moment().valueOf();
-        pAcc.value = json.value;
         pAcc.userId = json.userId;
-        pAcc.type = json.type;
 
-        pAcc.save(function (err) {
-            console.log(err);
+        console.log(json);
+
+        PSchema.findByUser(json.userId, function (err,data) {
             if(err){
-                res.send({"error":err,isSuccess: false});
+                res.send({err:err, isSuccess: false})
             }
-            res.json({message: 'Value Saved', isSuccess: true})
-        })
-    })
 
-router.route('/portfolio/:id').get(function (req,res) {
+            var found = false;
+            console.log(data);
+
+            //Find coin type and assign value
+            data[0].coins.map(function(elem,ind){
+                if(elem.type === json.type){
+                    found = true;
+                    elem.value = json.value;
+                }
+                return elem;
+            });
+
+            if(!found){
+                data[0].coins.push({
+                    type: json.type,
+                    value: json.value
+                })
+            }
+
+            //Assign coins
+            pAcc.coins = data[0].coins;
+
+            pAcc.save(function (err) {
+                console.log(err);
+                if(err){
+                    res.send({"error":err,isSuccess: false});
+                }
+                res.json({message: 'Value Saved', isSuccess: true})
+            })
+        });
+        //pAcc.type = json.type;
+    });
+
+router.route('/portfolio/:id')
+    .get(function (req,res) {
         PSchema.findByUser(req.params.id, function (err,data) {
             if(err){
                 res.send({err:err, isSuccess: false})
