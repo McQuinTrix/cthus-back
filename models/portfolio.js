@@ -14,7 +14,7 @@ var PortfolioSchema = new Schema({
 });
 
 PortfolioSchema.statics.findByUser = function(userId, callback) {
-    return this.find({ userId: userId }, callback).sort({$natural:-1}).limit(1);
+    return this.find({ userId: userId }, callback).sort({$natural:1}).limit(1);
 };
 
 module.exports = mongoose.model('PSchema', PortfolioSchema);
