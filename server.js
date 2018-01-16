@@ -314,7 +314,7 @@ router.route('/portfolio')
 
             if(!found){
                 data[0].coins.push({
-                    type: json.type,
+                    type: json.type.toUpperCase(),
                     value: json.value
                 })
             }
