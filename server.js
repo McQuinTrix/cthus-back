@@ -198,7 +198,7 @@ router.route('/signup')
 //Get/Update/Delete userInfo
 //--------------------------
 //--------------------------
-router.route('/userInfo')
+router.route('/userInfo/:id')
         .post(function(req,res){
             Account.findByEmail(req.body.email, function (err,data) {
                 if(err){
@@ -235,7 +235,9 @@ router.route('/userInfo')
         })
         .put(function(res,req){
             var json = req.body;
-            Account.findByEmail(req.body.email, function (err,data) {
+                account = new Account();
+
+            Account.findById(req.params.id, function (err,data) {
                 if(err){
                     res.send({err:err, isSuccess: false})
                 }
@@ -245,8 +247,8 @@ router.route('/userInfo')
                 data.fname = json.fname || data.fname;
                 data.lname = json.lname || data.lname;
                 data.lastUpdate = moment().valueOf();
-    
-                btc.save(function(err){
+
+                account.save(function(err){
                     if(err){
                         res.send({err:err, isSuccess: false})
                     }
