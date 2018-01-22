@@ -18,6 +18,3 @@ PortfolioSchema.statics.findByUser = function(userId, callback) {
 };
 
 module.exports = mongoose.model('PSchema', PortfolioSchema);
-
-//BTC-Val
-//ETH-Val

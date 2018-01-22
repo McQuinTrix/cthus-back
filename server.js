@@ -244,7 +244,7 @@ router.route('/userInfo')
                 data.pin = json.pin || "";
                 data.fname = json.fname || data.fname;
                 data.lname = json.lname || data.lname;
-                data.lastUpdate = moment.valueOf();
+                data.lastUpdate = moment().valueOf();
     
                 btc.save(function(err){
                     if(err){
