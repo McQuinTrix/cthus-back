@@ -59,7 +59,7 @@ app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
 
 //Setting the port
-var port = process.env.PORT || 8000;
+var port = process.env.PORT || 8001;
 
 //API Routes
 var router = express.Router();
@@ -269,11 +269,21 @@ router.route('/userInfo/:id')
             })
         })
         .get(function (res,req) {
+            var id = req.req.params.id,
+                res = res.res,
+                json;
             Account.findById(id, function (err,data) {
                 if(err){
                     res.send({err:err, isSuccess: false})
                 }
-                res.json({message: 'Value Deleted', isSuccess: true,result:data})
+                json = data._doc;
+                
+                //Delete stuff
+                delete json.password;
+                delete json.pin;
+                delete json.__v;
+
+                res.json({message: 'Value Deleted', isSuccess: true,result:data._doc})
             });
         });
 
