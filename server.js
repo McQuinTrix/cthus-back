@@ -234,12 +234,14 @@ router.route('/userInfo/:id')
             })
         })
         .put(function(res,req){
-            var json = req.body;
-                account = new Account();
+            var json = req.req.body,
+                id = req.req.params.id,
+                account = new Account(),
+                response = res.res;
 
-            Account.findById(req.params.id, function (err,data) {
+            Account.findById(id, function (err,data) {
                 if(err){
-                    res.send({err:err, isSuccess: false})
+                    response.send({err:err, isSuccess: false})
                 }
 
                 data.password = json.password || data.password;
@@ -248,11 +250,11 @@ router.route('/userInfo/:id')
                 data.lname = json.lname || data.lname;
                 data.lastUpdate = moment().valueOf();
 
-                account.save(function(err){
+                data.save(function(err){
                     if(err){
-                        res.send({err:err, isSuccess: false})
+                        response.send({err:err, isSuccess: false})
                     }
-                    res.json({message: 'Value Saved', isSuccess: true})
+                    response.json({message: 'Value Saved', isSuccess: true})
                 })
             })
         })
@@ -265,6 +267,14 @@ router.route('/userInfo/:id')
                 }
                 res.json({message: 'Value Deleted', isSuccess: true})
             })
+        })
+        .get(function (res,req) {
+            Account.findById(id, function (err,data) {
+                if(err){
+                    res.send({err:err, isSuccess: false})
+                }
+                res.json({message: 'Value Deleted', isSuccess: true,result:data})
+            });
         });
 
 //End userInfo
