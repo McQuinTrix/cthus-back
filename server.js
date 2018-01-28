@@ -284,7 +284,11 @@ router.route('/userInfo/:id')
                 delete json.pin;
                 delete json.__v;
 
-                response.json({message: 'Value Deleted', isSuccess: true,result:data._doc})
+                response.json({
+                    message: 'User Information Retrieved',
+                    isSuccess: true,
+                    result:data._doc
+                });
             });
         });
 
