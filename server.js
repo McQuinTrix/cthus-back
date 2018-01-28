@@ -270,11 +270,12 @@ router.route('/userInfo/:id')
         })
         .get(function (res,req) {
             var id = req.req.params.id,
-                res = res.res,
+                response = res.res,
                 json;
+
             Account.findById(id, function (err,data) {
                 if(err){
-                    res.send({err:err, isSuccess: false})
+                    response.send({err:err, isSuccess: false})
                 }
                 json = data._doc;
                 
@@ -283,7 +284,7 @@ router.route('/userInfo/:id')
                 delete json.pin;
                 delete json.__v;
 
-                res.json({message: 'Value Deleted', isSuccess: true,result:data._doc})
+                response.json({message: 'Value Deleted', isSuccess: true,result:data._doc})
             });
         });
 
