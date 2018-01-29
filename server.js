@@ -257,7 +257,7 @@ router.route('/userInfo/:id')
                     response.json({
                         message: 'Value Saved',
                         isSuccess: true,
-                        result: data
+                        result: json
                     });
                 })
             })
