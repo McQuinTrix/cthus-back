@@ -254,7 +254,11 @@ router.route('/userInfo/:id')
                     if(err){
                         response.send({err:err, isSuccess: false})
                     }
-                    response.json({message: 'Value Saved', isSuccess: true})
+                    response.json({
+                        message: 'Value Saved',
+                        isSuccess: true,
+                        result: data
+                    });
                 })
             })
         })

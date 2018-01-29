@@ -21,8 +21,8 @@
       <file leaf-file-name="server.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="469">
-              <caret line="290" column="19" lean-forward="false" selection-start-line="290" selection-start-column="19" selection-end-line="290" selection-end-column="19" />
+            <state relative-caret-position="423">
+              <caret line="260" column="23" lean-forward="false" selection-start-line="260" selection-start-column="23" selection-end-line="260" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -137,8 +137,8 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="26" />
-    <option name="y" value="92" />
+    <option name="x" value="16" />
+    <option name="y" value="23" />
     <option name="width" value="1440" />
     <option name="height" value="808" />
   </component>
@@ -306,15 +306,15 @@
       <workItem from="1516578636912" duration="2406000" />
       <workItem from="1516683403132" duration="61000" />
       <workItem from="1516859885732" duration="1270000" />
-      <workItem from="1517133071708" duration="430000" />
+      <workItem from="1517133071708" duration="989000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="51465000" />
+    <option name="totallyTimeSpent" value="52024000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="26" y="92" width="1440" height="808" extended-state="0" />
+    <frame x="16" y="23" width="1440" height="808" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15416667" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -753,6 +753,22 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/models/btc-schema.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="35" lean-forward="false" selection-start-line="4" selection-start-column="35" selection-end-line="4" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="23" column="25" lean-forward="false" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/models/daily-value.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -773,14 +789,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/btc-schema.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="35" lean-forward="false" selection-start-line="4" selection-start-column="35" selection-end-line="4" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/models/portfolio.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
@@ -793,16 +801,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="469">
-          <caret line="290" column="19" lean-forward="false" selection-start-line="290" selection-start-column="19" selection-end-line="290" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="25" lean-forward="false" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="25" />
+        <state relative-caret-position="423">
+          <caret line="260" column="23" lean-forward="false" selection-start-line="260" selection-start-column="23" selection-end-line="260" selection-end-column="23" />
           <folding />
         </state>
       </provider>
