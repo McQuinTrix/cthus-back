@@ -6,7 +6,7 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
     moment = require('moment'),
-    config = require('./models/config'),
+    config ,
     request = require('request'),
     time = 1000*60*30;
 
@@ -47,6 +47,10 @@ function callAPI(url,type){
 }
 
 //database config
+
+if(!process.env.MONGODB_URI){
+    config = require('./models/config')
+}
 
 mongoose.connect(process.env.MONGODB_URI || config.dbStr);
 
