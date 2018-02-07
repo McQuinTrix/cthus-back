@@ -48,7 +48,7 @@ function callAPI(url,type){
 
 //database config
 
-mongoose.connect(config.dbStr);
+mongoose.connect(process.env.MONGOLAB_URI || config.dbStr);
 
 var BTCSchema = require('./models/btc-schema');
 
@@ -59,7 +59,7 @@ app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
 
 //Setting the port
-var port = process.env.PORT || 8001;
+var port = process.env.PORT || 8000;
 
 //API Routes
 var router = express.Router();
