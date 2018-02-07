@@ -48,7 +48,7 @@ function callAPI(url,type){
 
 //database config
 
-mongoose.connect(process.env.MONGOLAB_URI || config.dbStr);
+mongoose.connect(process.env.MONGODB_URI || config.dbStr);
 
 var BTCSchema = require('./models/btc-schema');
 
