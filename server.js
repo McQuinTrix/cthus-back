@@ -405,7 +405,9 @@ router.route('/daily-save')
 
 router.route('/get-values/:type')
     .get(function (req,res){
-        DailySchema.findByType(req.params.type, function (err,data) {
+        var type = req.params.type;
+
+        DailySchema.findByType(type, function (err,data) {
             if(err){
                 res.send({err:err, isSuccess: false})
             }
@@ -418,7 +420,7 @@ router.route('/get-values/:type')
             });
 
             //Respond
-            res.json({type: req.params.type, result:data})
+            res.json({type: type, result:data})
         })
     });
 
