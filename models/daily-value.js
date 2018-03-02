@@ -13,7 +13,7 @@ var DailySchema = new Schema({
 });
 
 DailySchema.statics.findByType = function(type, callback) {
-    return this.find({ type: new RegExp(type, 'i') }, callback).sort({date:-1}).limit(192);
+    return this.find({ type: new RegExp(type, 'i') }, callback).sort({date:-1}).limit(240);
 };
 
 module.exports = mongoose.model('DailySchema', DailySchema);
