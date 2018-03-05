@@ -160,7 +160,7 @@ router.route('/signup')
         acc.fname = json.fname || "";
         acc.lname = json.lname || "";
         acc.date = moment().valueOf();
-        acc.lastUpdate = moment.valueOf();
+        acc.lastUpdate = moment().valueOf();
 
         console.log(json);
         //Find if email already exists
@@ -195,7 +195,7 @@ router.route('/signup')
                 res.send({err:err, isSuccess: false})
             }
         });
-    })
+    });
 
 //--------------------------
 //--------------------------
