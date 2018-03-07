@@ -225,26 +225,33 @@ router.route('/userInfo/:id')
                     })
                 }
 
-                if(req.body.password === data[0].password){
+                if(data.length === 0){
                     res.json({
                         data:{
-                            fname: data[0].fname,
-                            lname: data[0].lname,
-                            message: "Request Successful",
-                            userId: data[0]._id
-                        },
-                        isSuccess: true
-                    });
-                }else{
-                    res.json({
-                        data:{
-                            userId: data[0]._id,
-                            message: "Password incorrect!"
+                            message: "Email or Password incorrect"
                         },
                         isSuccess: false
                     });
+                }else{
+                    if(req.body.password === data[0].password){
+                        res.json({
+                            data:{
+                                fname: data[0].fname,
+                                lname: data[0].lname,
+                                message: "Request Successful",
+                                userId: data[0]._id
+                            },
+                            isSuccess: true
+                        });
+                    }else{
+                        res.json({
+                            data:{
+                                message: "Password incorrect!"
+                            },
+                            isSuccess: false
+                        });
+                    }
                 }
-
             })
         })
         .put(function(res,req){
