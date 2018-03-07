@@ -178,15 +178,25 @@ router.route('/signup')
                     pAcc.userId = product._id;
                     pAcc.coins = [];
 
-                    pAcc.save(function (err) {
+                    pAcc.save(function (err,data) {
                         console.log(err);
                         if(err){
                             res.send({"error":err,isSuccess: false});
                         }
-                        //res.json({message: 'Value Saved', isSuccess: true})
+
+                        res.json({
+                            message: 'Value Saved',
+                            isSuccess: true,
+                            data:{
+                                fname: data[0].fname,
+                                lname: data[0].lname,
+                                message: "Request Successful",
+                                userId: data[0]._id
+                            }
+                        });
                     });
 
-                    res.json({message: 'Value Saved', isSuccess: true});
+
                 })
             }else{
                 res.json({message: 'Email Already Registered!', isSuccess: true})
