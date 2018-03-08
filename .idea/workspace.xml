@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="06b94696-f5d3-4c67-9b1d-3e3cb7653ad1" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server.js" afterPath="$PROJECT_DIR$/server.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -21,7 +20,7 @@
       <file leaf-file-name="server.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="313">
+            <state relative-caret-position="226">
               <caret line="230" column="66" lean-forward="false" selection-start-line="230" selection-start-column="66" selection-end-line="230" selection-end-column="66" />
               <folding>
                 <element signature="e#1889#2241#0" expanded="false" />
@@ -319,12 +318,12 @@
       <workItem from="1519890023470" duration="741000" />
       <workItem from="1519972685912" duration="254000" />
       <workItem from="1520237009672" duration="300000" />
-      <workItem from="1520407241051" duration="1859000" />
+      <workItem from="1520407241051" duration="1976000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="61092000" />
+    <option name="totallyTimeSpent" value="61209000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="808" extended-state="6" />
@@ -848,7 +847,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="313">
+        <state relative-caret-position="226">
           <caret line="230" column="66" lean-forward="false" selection-start-line="230" selection-start-column="66" selection-end-line="230" selection-end-column="66" />
           <folding>
             <element signature="e#1889#2241#0" expanded="false" />

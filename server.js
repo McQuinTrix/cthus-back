@@ -167,7 +167,8 @@ router.route('/signup')
         Account.findByEmail(json.email,function (err,data) {
             console.log(data);
             if(data.length === 0){
-                acc.save(function (err,product) {
+                acc.save(function (err,newInsertedData) {
+                    let newUserData = newInsertedData._doc;
                     if(err){
                         res.send({"error":err,isSuccess: false});
                     }
@@ -175,7 +176,7 @@ router.route('/signup')
                     var pAcc = new PSchema();
 
                     pAcc.date = moment().valueOf();
-                    pAcc.userId = product._id;
+                    pAcc.userId = newInsertedData._id;
                     pAcc.coins = [];
 
                     pAcc.save(function (err,data) {
@@ -188,10 +189,10 @@ router.route('/signup')
                             message: 'Value Saved',
                             isSuccess: true,
                             data:{
-                                fname: data[0].fname,
-                                lname: data[0].lname,
+                                fname: newUserData.fname,
+                                lname: newUserData.lname,
                                 message: "Request Successful",
-                                userId: data[0]._id
+                                userId: newUserData._id
                             }
                         });
                     });
