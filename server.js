@@ -8,43 +8,47 @@ var express = require('express'),
     moment = require('moment'),
     config ,
     request = require('request'),
-    time = 1000*60*30;
+    coinValTime = 1000*60*30,
+    nodemailer = require('nodemailer'),
+    sendMail = require('./components/mail');
 
-var j = setInterval(function () {
-    saveCoin("eth");
-    saveCoin("btc");
-},time);
+var coinValInterval = setInterval(function () {
+    getCoinValue("eth");
+    getCoinValue("btc");
+},coinValTime);
 
-function saveCoin(type){
-    console.log(type);
-    switch(type){
+function getCoinValue(coinType){
+
+    switch(coinType){
         case "btc":
-            callAPI('https://api.gemini.com/v1/pubticker/btcusd',type);
+            reqCoinAPI('https://api.gemini.com/v1/pubticker/btcusd',coinType);
             break;
         case "eth":
-            callAPI('https://api.gemini.com/v1/pubticker/ethusd',type);
+            reqCoinAPI('https://api.gemini.com/v1/pubticker/ethusd',coinType);
             break;
     }
 }
 
-function callAPI(url,type){
+function reqCoinAPI(url,coinType){
     request({
         method: 'GET',
         uri: url,
         gzip: true
     }, function(error, response, body){
-
-        var resp = JSON.parse(body);
-
-        console.log(resp,type);
-
-        request({
-            uri:'https://cryptonthus.herokuapp.com/api/daily-save',
-            method: 'POST',
-            json: {"value": resp.last, "type": type }
-        })
+        var response = JSON.parse(body);
+        saveCoinValue(response,coinType);
     })
 }
+
+function saveCoinValue(response,coinType){
+    request({
+        uri:'https://cryptonthus.herokuapp.com/api/daily-save',
+        method: 'POST',
+        json: {"value": response.last, "type": coinType }
+    })
+}
+
+
 
 //database config
 
@@ -71,6 +75,8 @@ var router = express.Router();
 //middleware to intercept and stuff
 router.use(function (req,res,next) {
    console.log('**Something up**');
+   //--Send Mail Test
+    sendMail();
    res.header("Access-Control-Allow-Origin", "*");
    next();
 });
@@ -168,7 +174,7 @@ router.route('/signup')
             console.log(data);
             if(data.length === 0){
                 acc.save(function (err,newInsertedData) {
-                    let newUserData = newInsertedData._doc;
+                    var newUserData = newInsertedData._doc;
                     if(err){
                         res.send({"error":err,isSuccess: false});
                     }
@@ -450,3 +456,4 @@ app.use('/api',router);
 
 //Starting the server
 app.listen(port);
+
