@@ -2,6 +2,7 @@
  * Created by harshalcarpenter on 11/24/17.
  */
 var express = require('express'),
+    path = require('path'),
     app = express(),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
@@ -10,52 +11,21 @@ var express = require('express'),
     request = require('request'),
     coinValTime = 1000*60*30,
     nodemailer = require('nodemailer'),
-    sendMail = require('./components/mail');
-
-var coinValInterval = setInterval(function () {
-    getCoinValue("eth");
-    getCoinValue("btc");
-},coinValTime);
-
-function getCoinValue(coinType){
-
-    switch(coinType){
-        case "btc":
-            reqCoinAPI('https://api.gemini.com/v1/pubticker/btcusd',coinType);
-            break;
-        case "eth":
-            reqCoinAPI('https://api.gemini.com/v1/pubticker/ethusd',coinType);
-            break;
-    }
-}
-
-function reqCoinAPI(url,coinType){
-    request({
-        method: 'GET',
-        uri: url,
-        gzip: true
-    }, function(error, response, body){
-        var response = JSON.parse(body);
-        saveCoinValue(response,coinType);
-    })
-}
-
-function saveCoinValue(response,coinType){
-    request({
-        uri:'https://cryptonthus.herokuapp.com/api/daily-save',
-        method: 'POST',
-        json: {"value": response.last, "type": coinType }
-    })
-}
-
-
+    sendMail = require('./components/mail'),
+    mailObject = require('./components/mail'),
+    mailBodyOptions = {to: "", subject: "", text: "", html: ""};
 
 //database config
-
 if(!process.env.MONGODB_URI){
     config = require('./models/config')
+
+    //Initiate Mail Object 
+    mailObject = mailObject(config.gmailPass);
+}else{
+    mailObject = mailObject(process.env.GMAIL_PASS);
 }
 
+//Mongo DB connect
 mongoose.connect(process.env.MONGODB_URI || config.dbStr);
 
 var BTCSchema = require('./models/btc-schema');
@@ -67,16 +37,16 @@ app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
 
 //Setting the port
-var port = process.env.PORT || 8000;
+var port = process.env.PORT || 8001;
 
 //API Routes
 var router = express.Router();
 
-//middleware to intercept and stuff
+//---------- API Start ----------------
+//middleware to intercept
 router.use(function (req,res,next) {
-   console.log('**Something up**');
-   //--Send Mail Test
-    sendMail();
+   console.log('--- API Called ---');
+   
    res.header("Access-Control-Allow-Origin", "*");
    next();
 });
@@ -156,42 +126,53 @@ var Account = require('./models/account');
 //--------------------------
 
 router.route('/signup')
-    .post(function(req,res){
-        var json = req.body,
-            acc = new Account();
+    .post(function(request,response){
+        var bodyJson = request.body,
+            AccountSchema = new Account();
         
-        acc.email = json.email;
-        acc.password = json.password;
-        acc.pin = json.pin || "";
-        acc.fname = json.fname || "";
-        acc.lname = json.lname || "";
-        acc.date = moment().valueOf();
-        acc.lastUpdate = moment().valueOf();
+        AccountSchema.email     = bodyJson.email;
+        AccountSchema.password  = bodyJson.password;
+        AccountSchema.pin       = bodyJson.pin || "";
+        AccountSchema.fname     = bodyJson.fname || "";
+        AccountSchema.lname     = bodyJson.lname || "";
+        AccountSchema.date      = moment().valueOf();
+        AccountSchema.lastUpdate = moment().valueOf();
 
-        console.log(json);
         //Find if email already exists
-        Account.findByEmail(json.email,function (err,data) {
-            console.log(data);
+        Account.findByEmail(bodyJson.email,function (accountError,data) {
+
+            //If Email not found..
             if(data.length === 0){
-                acc.save(function (err,newInsertedData) {
-                    var newUserData = newInsertedData._doc;
-                    if(err){
-                        res.send({"error":err,isSuccess: false});
+
+                //Account Schema save if not found in emails
+                AccountSchema.save(function (accountSchemaError,newInsertedData) {
+
+                    var portfolioSchema = new PSchema();
+
+                    if(accountSchemaError){
+                        response.send({
+                            "error": accountSchemaError,
+                            isSuccess: false
+                        });
                     }
 
-                    var pAcc = new PSchema();
+                    //Set Portfolio and save
+                    portfolioSchema.date = moment().valueOf();
+                    portfolioSchema.userId = newInsertedData._id;
+                    portfolioSchema.coins = [];
 
-                    pAcc.date = moment().valueOf();
-                    pAcc.userId = newInsertedData._id;
-                    pAcc.coins = [];
+                    portfolioSchema.save(function (portfolioSchemaError,data) {
 
-                    pAcc.save(function (err,data) {
-                        console.log(err);
-                        if(err){
-                            res.send({"error":err,isSuccess: false});
+                        var newUserData = newInsertedData._doc;
+
+                        if(portfolioSchemaError){
+                            response.send({
+                                "error"     : portfolioSchemaError,
+                                isSuccess   : false
+                            });
                         }
 
-                        res.json({
+                        response.json({
                             message: 'Value Saved',
                             isSuccess: true,
                             data:{
@@ -202,14 +183,18 @@ router.route('/signup')
                             }
                         });
                     });
-
-
                 })
             }else{
-                res.json({message: 'Email Already Registered!', isSuccess: true})
+                response.json({
+                    message: 'Email Already Registered!',
+                    isSuccess: true
+                })
             }
-            if(err){
-                res.send({err:err, isSuccess: false})
+            if(accountError){
+                response.send({
+                    err:accountError, 
+                    isSuccess: false
+                })
             }
         });
     });
@@ -352,8 +337,6 @@ router.route('/portfolio')
         pAcc.date = moment().valueOf();
         pAcc.userId = json.userId;
 
-        console.log(json);
-
         PSchema.findByUser(json.userId, function (err,data) {
             if(err){
                 res.send({err:err, isSuccess: false})
@@ -389,7 +372,6 @@ router.route('/portfolio')
                 res.json({message: 'Value Saved', isSuccess: true})
             })
         });
-        //pAcc.type = json.type;
     });
 
 router.route('/portfolio/:id')
@@ -403,6 +385,7 @@ router.route('/portfolio/:id')
             res.json({result:data})
         })
     });
+
 
 /*
  Daily Save for coin save
@@ -451,9 +434,65 @@ router.route('/get-values/:type')
 //End userInfo
 /****************************/
 
-//Registering our routes
+//Registering our routes for api
 app.use('/api',router);
+
+//---------- API END --------------------
+
+var coinValInterval = setInterval(function () {
+    getCoinValue("eth");
+    getCoinValue("btc");
+},coinValTime);
+
+function getCoinValue(coinType){
+
+    switch(coinType){
+        case "btc":
+            reqCoinAPI('https://api.gemini.com/v1/pubticker/btcusd',coinType);
+            break;
+        case "eth":
+            reqCoinAPI('https://api.gemini.com/v1/pubticker/ethusd',coinType);
+            break;
+    }
+}
+
+function reqCoinAPI(url,coinType){
+    request({
+        method: 'GET',
+        uri: url,
+        gzip: true
+    }, function(error, response, body){
+        var response = JSON.parse(body);
+        saveCoinValue(response,coinType);
+    })
+}
+
+function saveCoinValue(response,coinType){
+    request({
+        uri:'https://cryptonthus.herokuapp.com/api/daily-save',
+        method: 'POST',
+        json: {"value": response.last, "type": coinType }
+    })
+}
+
+//---------- HTML Server Start ----------------
+
+// For Webpage
+app.get('/', function(req, res) {
+    res.sendFile(path.join(__dirname + '/website/index.html'));
+});
+
+//---------- HTML Server End ----------------
 
 //Starting the server
 app.listen(port);
 
+
+//-------------------------
+//--Send Mail Test
+// mailObject.sendMail({
+//     to: "harshal.carpenter@gmail.com", 
+//     subject: "Send Mail Object Test", 
+//     text: "", 
+//     html: "<h1>Oh Yeah!</h1>"
+//  });
