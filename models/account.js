@@ -12,7 +12,8 @@ var Account = new Schema({
     fname: String,
     lname: String,
     date: String,
-    lastUpdate: String
+    lastUpdate: String,
+    emailConfirm: String
 });
 
 Account.statics.findByEmail = function(email, callback) {

@@ -1,5 +1,6 @@
 'use strict';
-const nodemailer = require('nodemailer');
+const nodemailer = require('nodemailer'),
+    confirmEmailTemplate = require('./mail-templates/confirmEmail');
 
 function mailObject(emailPassword){
     // setup email data with unicode symbols
@@ -17,12 +18,17 @@ function mailObject(emailPassword){
     });
 
     //Send Mail function
-    function sendMail(moreMailOptions) {
+    function sendMail(argumentOptions) {
 
-        mailOptions.to      = moreMailOptions.to;
-        mailOptions.subject = moreMailOptions.subject;
-        mailOptions.text    = moreMailOptions.text;
-        mailOptions.html    = moreMailOptions.html;
+        mailOptions.to      = argumentOptions.to;
+        mailOptions.from    = argumentOptions.from;
+        mailOptions.subject = argumentOptions.subject;
+        mailOptions.text    = argumentOptions.text;
+        mailOptions.html    = argumentOptions.html;
+
+        if(argumentOptions.type === "confirmEmail"){
+            mailOptions.html = confirmEmailTemplate(argumentOptions.link);
+        }
 
         /* 
             to: 'harshal.carpenter@gmail.com', // list of receivers

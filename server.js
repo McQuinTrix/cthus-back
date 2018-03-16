@@ -13,7 +13,8 @@ var express = require('express'),
     nodemailer = require('nodemailer'),
     sendMail = require('./components/mail'),
     mailObject = require('./components/mail'),
-    mailBodyOptions = {to: "", subject: "", text: "", html: ""};
+    mailBodyOptions = {to: "", subject: "", text: "", html: ""},
+    baseUrl = "";
 
 //database config
 if(!process.env.MONGODB_URI){
@@ -21,8 +22,11 @@ if(!process.env.MONGODB_URI){
 
     //Initiate Mail Object 
     mailObject = mailObject(config.gmailPass);
+
+    baseUrl = 'http://localhost:8001'
 }else{
     mailObject = mailObject(process.env.GMAIL_PASS);
+    baseUrl = 'http://www.cryptonthus.com';
 }
 
 //Mongo DB connect
@@ -137,6 +141,7 @@ router.route('/signup')
         AccountSchema.lname     = bodyJson.lname || "";
         AccountSchema.date      = moment().valueOf();
         AccountSchema.lastUpdate = moment().valueOf();
+        AccountSchema.emailConfirm = false;
 
         //Find if email already exists
         Account.findByEmail(bodyJson.email,function (accountError,data) {
@@ -164,6 +169,16 @@ router.route('/signup')
                     portfolioSchema.save(function (portfolioSchemaError,data) {
 
                         var newUserData = newInsertedData._doc;
+
+                        mailObject.sendMail({
+                            from: "Cryptonthus <support@cryptonthus.com>",
+                            to: newUserData.email, 
+                            subject: "Cryptonthus - Confirm Email", 
+                            text: "", 
+                            link: "<a href='"+baseUrl+"/confirm-email/"+newInsertedData._id+"'>Confirmation Link</a>",
+                            html: "",
+                            type: "confirmEmail"
+                        });
 
                         if(portfolioSchemaError){
                             response.send({
@@ -480,6 +495,25 @@ function saveCoinValue(response,coinType){
 // For Webpage
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname + '/website/index.html'));
+});
+
+app.get('/confirm-email/:id', function(request,response){
+    Account.findById(request.params.id, function (err,data) {
+        if(err){
+            //response.send({err:err, isSuccess: false})
+            response.sendFile(path.join(__dirname + '/website/index.html'));
+        }
+
+        data.emailConfirm = true;
+
+        data.save(function(err){
+            if(err){
+                //response.send({err:err, isSuccess: false})
+                response.sendFile(path.join(__dirname + '/website/index.html'));
+            }
+            response.sendFile(path.join(__dirname + '/website/index.html'));
+        })
+    });
 });
 
 //---------- HTML Server End ----------------
