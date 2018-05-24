@@ -23,7 +23,7 @@ if(!process.env.MONGODB_URI){
     //Initiate Mail Object 
     mailObject = mailObject(config.gmailPass);
 
-    baseUrl = 'http://localhost:8001'
+    baseUrl = 'http://localhost:8000'
 }else{
     mailObject = mailObject(process.env.GMAIL_PASS);
     baseUrl = 'http://www.cryptonthus.com';
@@ -41,7 +41,7 @@ app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
 
 //Setting the port
-var port = process.env.PORT || 8001;
+var port = process.env.PORT || 8000;
 
 //API Routes
 var router = express.Router();
@@ -446,6 +446,27 @@ router.route('/get-values/:type')
         })
     });
 
+    router.route('/confirm-email/:id').post( function(request,response){
+        Account.findById(request.params.id, function (err,data) {
+            if(err){
+                //response.send({err:err, isSuccess: false})
+                //response.sendFile(path.join(__dirname + '/website/index.html'));
+                response.send({err:err, isSuccess: false});
+            }
+    
+            data.emailConfirm = true;
+    
+            data.save(function(err){
+                if(err){
+                    //response.send({err:err, isSuccess: false})
+                    //response.sendFile(path.join(__dirname + '/website/index.html'));
+                    response.send({err:err, isSuccess: false});
+                }
+                response.json({message: 'Value Saved', isSuccess: true})
+            })
+        });
+    });
+
 //End userInfo
 /****************************/
 
@@ -495,25 +516,6 @@ function saveCoinValue(response,coinType){
 // For Webpage
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname + '/website/index.html'));
-});
-
-app.get('/confirm-email/:id', function(request,response){
-    Account.findById(request.params.id, function (err,data) {
-        if(err){
-            //response.send({err:err, isSuccess: false})
-            response.sendFile(path.join(__dirname + '/website/index.html'));
-        }
-
-        data.emailConfirm = true;
-
-        data.save(function(err){
-            if(err){
-                //response.send({err:err, isSuccess: false})
-                response.sendFile(path.join(__dirname + '/website/index.html'));
-            }
-            response.sendFile(path.join(__dirname + '/website/index.html'));
-        })
-    });
 });
 
 //---------- HTML Server End ----------------
