@@ -13,8 +13,10 @@ var express = require('express'),
     nodemailer = require('nodemailer'),
     sendMail = require('./components/mail'),
     mailObject = require('./components/mail'),
-    mailBodyOptions = {to: "", subject: "", text: "", html: ""},
-    baseUrl = "";
+    mailBodyOptions = { to: "", subject: "", text: "", html: ""},
+    baseUrl = "",
+    confirmEmailFunc = require("./components/api-func/confirm-email"),
+    UserInfoAPI = require('./components/api-func/user-info');
 
 //database config
 if(!process.env.MONGODB_URI){
@@ -207,7 +209,7 @@ router.route('/signup')
             }
             if(accountError){
                 response.send({
-                    err:accountError, 
+                    error: accountError, 
                     isSuccess: false
                 })
             }
@@ -290,39 +292,8 @@ router.route('/userInfo/:id')
                 })
             })
         })
-        .delete(function(res,req){
-            Account.remove({
-                email: req.body.email
-            }, function (err,bear) {
-                if(err){
-                    res.send({err:err, isSuccess: false})
-                }
-                res.json({message: 'Value Deleted', isSuccess: true})
-            })
-        })
-        .get(function (res,req) {
-            var id = req.req.params.id,
-                response = res.res,
-                json;
-
-            Account.findById(id, function (err,data) {
-                if(err){
-                    response.send({err:err, isSuccess: false})
-                }
-                json = data._doc;
-                
-                //Delete stuff
-                delete json.password;
-                delete json.pin;
-                delete json.__v;
-
-                response.json({
-                    message: 'User Information Retrieved',
-                    isSuccess: true,
-                    result:data._doc
-                });
-            });
-        });
+        .delete()
+        .get(UserInfoAPI.getUserInfo);
 
 //End userInfo
 /****************************/
@@ -446,26 +417,7 @@ router.route('/get-values/:type')
         })
     });
 
-    router.route('/confirm-email/:id').post( function(request,response){
-        Account.findById(request.params.id, function (err,data) {
-            if(err){
-                //response.send({err:err, isSuccess: false})
-                //response.sendFile(path.join(__dirname + '/website/index.html'));
-                response.send({err:err, isSuccess: false});
-            }
-    
-            data.emailConfirm = true;
-    
-            data.save(function(err){
-                if(err){
-                    //response.send({err:err, isSuccess: false})
-                    //response.sendFile(path.join(__dirname + '/website/index.html'));
-                    response.send({err:err, isSuccess: false});
-                }
-                response.json({message: 'Value Saved', isSuccess: true})
-            })
-        });
-    });
+router.route('/confirm-email/:id').post( confirmEmailFunc );
 
 //End userInfo
 /****************************/
