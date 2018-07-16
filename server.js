@@ -13,10 +13,13 @@ var express = require('express'),
     nodemailer = require('nodemailer'),
     sendMail = require('./components/mail'),
     mailObject = require('./components/mail'),
-    mailBodyOptions = { to: "", subject: "", text: "", html: ""},
     baseUrl = "",
     confirmEmailFunc = require("./components/api-func/confirm-email"),
-    UserInfoAPI = require('./components/api-func/user-info');
+    UserInfoAPI = require('./components/api-func/user-info'),
+    coinValInterval = setInterval(function () {
+        getCoinValue("eth");
+        getCoinValue("btc");
+    },coinValTime);
 
 //database config
 if(!process.env.MONGODB_URI){
@@ -125,12 +128,7 @@ router.route('/btc/:btc_id')
 //Email Sign In/Up
 var Account = require('./models/account');
 
-//--------------------------
-//--------------------------
 //Create User
-//--------------------------
-//--------------------------
-
 router.route('/signup')
     .post(function(request,response){
         var bodyJson = request.body,
@@ -216,11 +214,8 @@ router.route('/signup')
         });
     });
 
-//--------------------------
-//--------------------------
+
 //Get/Update/Delete userInfo
-//--------------------------
-//--------------------------
 router.route('/userInfo/:id')
         .post(function(req,res){
             Account.findByEmail(req.body.email, function (err,data) {
@@ -295,15 +290,7 @@ router.route('/userInfo/:id')
         .delete()
         .get(UserInfoAPI.getUserInfo);
 
-//End userInfo
-/****************************/
-
-//--------------------------
-//--------------------------
 //Get/Update/Delete User BTC/ETH Account
-//--------------------------
-//--------------------------
-
 //Portfolio save
 var PSchema = require('./models/portfolio');
 
@@ -417,20 +404,17 @@ router.route('/get-values/:type')
         })
     });
 
-router.route('/confirm-email/:id').post( confirmEmailFunc );
+router.route('/action/:type')
+    .post( handleAction );
 
-//End userInfo
-/****************************/
+//Confirming Email
+router.route('/confirm-email/:id').post( confirmEmailFunc );
 
 //Registering our routes for api
 app.use('/api',router);
 
 //---------- API END --------------------
 
-var coinValInterval = setInterval(function () {
-    getCoinValue("eth");
-    getCoinValue("btc");
-},coinValTime);
 
 function getCoinValue(coinType){
 
@@ -450,8 +434,8 @@ function reqCoinAPI(url,coinType){
         uri: url,
         gzip: true
     }, function(error, response, body){
-        var response = JSON.parse(body);
-        saveCoinValue(response,coinType);
+        body = JSON.parse(body);
+        saveCoinValue(body,coinType);
     })
 }
 
@@ -474,13 +458,3 @@ app.get('/', function(req, res) {
 
 //Starting the server
 app.listen(port);
-
-
-//-------------------------
-//--Send Mail Test
-// mailObject.sendMail({
-//     to: "harshal.carpenter@gmail.com", 
-//     subject: "Send Mail Object Test", 
-//     text: "", 
-//     html: "<h1>Oh Yeah!</h1>"
-//  });
