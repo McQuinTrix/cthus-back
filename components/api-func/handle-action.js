@@ -1,5 +1,7 @@
 var actionEnum = require('../../enum/actions-enum');
 
+
+
 module.exports = function(request,response,error){
     try{
         var type = request.params.type;
