@@ -1,6 +1,6 @@
 module.exports = {
     like:"2A6NBDFJTX6HCDT8",
-    dislike:"VO75CLDFDNPB85W4",
+    dislike:"VO75CLDFDNPB85W4"
     /*"":"NDEAB6EUIQHT2YRW",
     "":"CPNNZS873ZCD87O7",
     "":"0A56H5W91WSI2OSB",
@@ -15,4 +15,4 @@ module.exports = {
     "":"H8GUKZ25QK5U3GDM",
     "":"6FRXNWL0BH0D5Q4M",
     "":"LUVRPXDZR86NB0GH"*/
-}
+};
