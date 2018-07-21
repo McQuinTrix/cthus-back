@@ -7,8 +7,9 @@ var Post = new Schema({
     reactions: Object,
     created: String,
     lastUpdated: String,
-    parentId:String
-});
+    parentId:String,
+    _id: String
+}, { _id: false });
 //reactions: {userId:{lastUpdated:"", reactionType:""}}
 //commentObj: {userId:"",value:""}
 
