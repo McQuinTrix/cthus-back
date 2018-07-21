@@ -15,6 +15,7 @@ var express = require('express'),
     mailObject = require('./components/mail'),
     baseUrl = "",
     confirmEmailFunc = require("./components/api-func/confirm-email"),
+    handleAction = require("./components/api-func/handle-action"),
     UserInfoAPI = require('./components/api-func/user-info'),
     coinValInterval = setInterval(function () {
         getCoinValue("eth");

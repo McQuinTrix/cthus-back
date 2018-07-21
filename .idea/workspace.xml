@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="06b94696-f5d3-4c67-9b1d-3e3cb7653ad1" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/models/actions.js" afterPath="$PROJECT_DIR$/models/posts.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/api-func/handle-action.js" afterPath="$PROJECT_DIR$/components/api-func/handle-action.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/enum/actions-enum.js" afterPath="$PROJECT_DIR$/enum/actions-enum.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server.js" afterPath="$PROJECT_DIR$/server.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -20,24 +18,24 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="server.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="server.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="415">
-              <caret line="259" column="10" lean-forward="true" selection-start-line="259" selection-start-column="10" selection-end-line="259" selection-end-column="10" />
+            <state relative-caret-position="289">
+              <caret line="17" column="63" lean-forward="false" selection-start-line="17" selection-start-column="63" selection-end-line="17" selection-end-column="63" />
               <folding>
-                <element signature="e#1820#2172#0" expanded="false" />
-                <element signature="e#2200#2376#0" expanded="false" />
-                <element signature="e#2435#2635#0" expanded="false" />
-                <element signature="e#2730#3092#0" expanded="false" />
-                <element signature="e#3157#3203#0" expanded="false" />
-                <element signature="e#3246#3315#0" expanded="false" />
-                <element signature="e#3539#6713#0" expanded="false" />
-                <element signature="e#8273#9252#0" expanded="false" />
-                <element signature="e#9470#10760#0" expanded="false" />
-                <element signature="e#10823#11062#0" expanded="false" />
-                <element signature="e#11207#11610#0" expanded="false" />
-                <element signature="e#12414#12673#0" expanded="false" />
+                <element signature="e#1887#2239#0" expanded="false" />
+                <element signature="e#2267#2443#0" expanded="false" />
+                <element signature="e#2502#2702#0" expanded="false" />
+                <element signature="e#2797#3159#0" expanded="false" />
+                <element signature="e#3224#3270#0" expanded="false" />
+                <element signature="e#3313#3382#0" expanded="false" />
+                <element signature="e#3606#6780#0" expanded="false" />
+                <element signature="e#8340#9319#0" expanded="false" />
+                <element signature="e#9537#10827#0" expanded="false" />
+                <element signature="e#10890#11129#0" expanded="false" />
+                <element signature="e#11274#11677#0" expanded="false" />
+                <element signature="e#12481#12740#0" expanded="false" />
                 <element signature="n#!!block;n#reqCoinAPI#0" expanded="false" />
                 <element signature="n#!!block;n#saveCoinValue#0" expanded="false" />
               </folding>
@@ -45,11 +43,21 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="confirm-email.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/components/api-func/confirm-email.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="51">
+              <caret line="3" column="21" lean-forward="false" selection-start-line="3" selection-start-column="21" selection-end-line="3" selection-end-column="38" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="handle-action.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/components/api-func/handle-action.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="2" lean-forward="true" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="2" />
+            <state relative-caret-position="102">
+              <caret line="6" column="17" lean-forward="false" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -75,11 +83,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="posts.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="posts.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/posts.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="19" lean-forward="false" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
+            <state relative-caret-position="170">
+              <caret line="10" column="3" lean-forward="true" selection-start-line="10" selection-start-column="3" selection-end-line="10" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -132,12 +140,12 @@
         <option value="$PROJECT_DIR$/models/daily-value.js" />
         <option value="$PROJECT_DIR$/components/mail.js" />
         <option value="$PROJECT_DIR$/website/index.html" />
-        <option value="$PROJECT_DIR$/server.js" />
         <option value="$PROJECT_DIR$/enum/actions-enum.js" />
         <option value="$PROJECT_DIR$/models/actions.js" />
-        <option value="$PROJECT_DIR$/components/api-func/handle-action.js" />
         <option value="$PROJECT_DIR$/models/account.js" />
         <option value="$PROJECT_DIR$/models/posts.js" />
+        <option value="$PROJECT_DIR$/components/api-func/handle-action.js" />
+        <option value="$PROJECT_DIR$/server.js" />
       </list>
     </option>
   </component>
@@ -362,12 +370,12 @@
       <workItem from="1520715942312" duration="3297000" />
       <workItem from="1521178528119" duration="752000" />
       <workItem from="1531703298939" duration="3637000" />
-      <workItem from="1531799973210" duration="9058000" />
+      <workItem from="1531799973210" duration="10643000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="77953000" />
+    <option name="totallyTimeSpent" value="79538000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="811" extended-state="6" />
@@ -404,29 +412,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#1820#2172#0" expanded="false" />
-            <element signature="e#2200#2376#0" expanded="false" />
-            <element signature="e#2435#2635#0" expanded="false" />
-            <element signature="e#2730#3092#0" expanded="false" />
-            <element signature="e#3157#3203#0" expanded="false" />
-            <element signature="e#3246#3315#0" expanded="false" />
-            <element signature="e#3539#6713#0" expanded="false" />
-            <element signature="e#8273#9252#0" expanded="false" />
-            <element signature="e#9470#10760#0" expanded="false" />
-            <element signature="e#10823#11062#0" expanded="false" />
-            <element signature="e#11207#11610#0" expanded="false" />
-            <element signature="e#12414#12673#0" expanded="false" />
-            <element signature="n#!!block;n#reqCoinAPI#0" expanded="false" />
-            <element signature="n#!!block;n#saveCoinValue#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/models/account.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -488,18 +473,18 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#1820#2172#0" expanded="false" />
-            <element signature="e#2200#2376#0" expanded="false" />
-            <element signature="e#2435#2635#0" expanded="false" />
-            <element signature="e#2730#3092#0" expanded="false" />
-            <element signature="e#3157#3203#0" expanded="false" />
-            <element signature="e#3246#3315#0" expanded="false" />
-            <element signature="e#3539#6713#0" expanded="false" />
-            <element signature="e#8273#9252#0" expanded="false" />
-            <element signature="e#9470#10760#0" expanded="false" />
-            <element signature="e#10823#11062#0" expanded="false" />
-            <element signature="e#11207#11610#0" expanded="false" />
-            <element signature="e#12414#12673#0" expanded="false" />
+            <element signature="e#1887#2239#0" expanded="false" />
+            <element signature="e#2267#2443#0" expanded="false" />
+            <element signature="e#2502#2702#0" expanded="false" />
+            <element signature="e#2797#3159#0" expanded="false" />
+            <element signature="e#3224#3270#0" expanded="false" />
+            <element signature="e#3313#3382#0" expanded="false" />
+            <element signature="e#3606#6780#0" expanded="false" />
+            <element signature="e#8340#9319#0" expanded="false" />
+            <element signature="e#9537#10827#0" expanded="false" />
+            <element signature="e#10890#11129#0" expanded="false" />
+            <element signature="e#11274#11677#0" expanded="false" />
+            <element signature="e#12481#12740#0" expanded="false" />
             <element signature="n#!!block;n#reqCoinAPI#0" expanded="false" />
             <element signature="n#!!block;n#saveCoinValue#0" expanded="false" />
           </folding>
@@ -539,18 +524,18 @@
         <state relative-caret-position="969">
           <caret line="111" column="27" lean-forward="false" selection-start-line="111" selection-start-column="27" selection-end-line="111" selection-end-column="27" />
           <folding>
-            <element signature="e#1820#2172#0" expanded="false" />
-            <element signature="e#2200#2376#0" expanded="false" />
-            <element signature="e#2435#2635#0" expanded="false" />
-            <element signature="e#2730#3092#0" expanded="false" />
-            <element signature="e#3157#3203#0" expanded="false" />
-            <element signature="e#3246#3315#0" expanded="false" />
-            <element signature="e#3539#6713#0" expanded="false" />
-            <element signature="e#8273#9252#0" expanded="false" />
-            <element signature="e#9470#10760#0" expanded="false" />
-            <element signature="e#10823#11062#0" expanded="false" />
-            <element signature="e#11207#11610#0" expanded="false" />
-            <element signature="e#12414#12673#0" expanded="false" />
+            <element signature="e#1887#2239#0" expanded="false" />
+            <element signature="e#2267#2443#0" expanded="false" />
+            <element signature="e#2502#2702#0" expanded="false" />
+            <element signature="e#2797#3159#0" expanded="false" />
+            <element signature="e#3224#3270#0" expanded="false" />
+            <element signature="e#3313#3382#0" expanded="false" />
+            <element signature="e#3606#6780#0" expanded="false" />
+            <element signature="e#8340#9319#0" expanded="false" />
+            <element signature="e#9537#10827#0" expanded="false" />
+            <element signature="e#10890#11129#0" expanded="false" />
+            <element signature="e#11274#11677#0" expanded="false" />
+            <element signature="e#12481#12740#0" expanded="false" />
             <element signature="n#!!block;n#reqCoinAPI#0" expanded="false" />
             <element signature="n#!!block;n#saveCoinValue#0" expanded="false" />
           </folding>
@@ -590,18 +575,18 @@
         <state relative-caret-position="969">
           <caret line="111" column="27" lean-forward="false" selection-start-line="111" selection-start-column="27" selection-end-line="111" selection-end-column="27" />
           <folding>
-            <element signature="e#1820#2172#0" expanded="false" />
-            <element signature="e#2200#2376#0" expanded="false" />
-            <element signature="e#2435#2635#0" expanded="false" />
-            <element signature="e#2730#3092#0" expanded="false" />
-            <element signature="e#3157#3203#0" expanded="false" />
-            <element signature="e#3246#3315#0" expanded="false" />
-            <element signature="e#3539#6713#0" expanded="false" />
-            <element signature="e#8273#9252#0" expanded="false" />
-            <element signature="e#9470#10760#0" expanded="false" />
-            <element signature="e#10823#11062#0" expanded="false" />
-            <element signature="e#11207#11610#0" expanded="false" />
-            <element signature="e#12414#12673#0" expanded="false" />
+            <element signature="e#1887#2239#0" expanded="false" />
+            <element signature="e#2267#2443#0" expanded="false" />
+            <element signature="e#2502#2702#0" expanded="false" />
+            <element signature="e#2797#3159#0" expanded="false" />
+            <element signature="e#3224#3270#0" expanded="false" />
+            <element signature="e#3313#3382#0" expanded="false" />
+            <element signature="e#3606#6780#0" expanded="false" />
+            <element signature="e#8340#9319#0" expanded="false" />
+            <element signature="e#9537#10827#0" expanded="false" />
+            <element signature="e#10890#11129#0" expanded="false" />
+            <element signature="e#11274#11677#0" expanded="false" />
+            <element signature="e#12481#12740#0" expanded="false" />
             <element signature="n#!!block;n#reqCoinAPI#0" expanded="false" />
             <element signature="n#!!block;n#saveCoinValue#0" expanded="false" />
           </folding>
@@ -641,18 +626,18 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#1820#2172#0" expanded="false" />
-            <element signature="e#2200#2376#0" expanded="false" />
-            <element signature="e#2435#2635#0" expanded="false" />
-            <element signature="e#2730#3092#0" expanded="false" />
-            <element signature="e#3157#3203#0" expanded="false" />
-            <element signature="e#3246#3315#0" expanded="false" />
-            <element signature="e#3539#6713#0" expanded="false" />
-            <element signature="e#8273#9252#0" expanded="false" />
-            <element signature="e#9470#10760#0" expanded="false" />
-            <element signature="e#10823#11062#0" expanded="false" />
-            <element signature="e#11207#11610#0" expanded="false" />
-            <element signature="e#12414#12673#0" expanded="false" />
+            <element signature="e#1887#2239#0" expanded="false" />
+            <element signature="e#2267#2443#0" expanded="false" />
+            <element signature="e#2502#2702#0" expanded="false" />
+            <element signature="e#2797#3159#0" expanded="false" />
+            <element signature="e#3224#3270#0" expanded="false" />
+            <element signature="e#3313#3382#0" expanded="false" />
+            <element signature="e#3606#6780#0" expanded="false" />
+            <element signature="e#8340#9319#0" expanded="false" />
+            <element signature="e#9537#10827#0" expanded="false" />
+            <element signature="e#10890#11129#0" expanded="false" />
+            <element signature="e#11274#11677#0" expanded="false" />
+            <element signature="e#12481#12740#0" expanded="false" />
             <element signature="n#!!block;n#reqCoinAPI#0" expanded="false" />
             <element signature="n#!!block;n#saveCoinValue#0" expanded="false" />
           </folding>
@@ -692,18 +677,18 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#1820#2172#0" expanded="false" />
-            <element signature="e#2200#2376#0" expanded="false" />
-            <element signature="e#2435#2635#0" expanded="false" />
-            <element signature="e#2730#3092#0" expanded="false" />
-            <element signature="e#3157#3203#0" expanded="false" />
-            <element signature="e#3246#3315#0" expanded="false" />
-            <element signature="e#3539#6713#0" expanded="false" />
-            <element signature="e#8273#9252#0" expanded="false" />
-            <element signature="e#9470#10760#0" expanded="false" />
-            <element signature="e#10823#11062#0" expanded="false" />
-            <element signature="e#11207#11610#0" expanded="false" />
-            <element signature="e#12414#12673#0" expanded="false" />
+            <element signature="e#1887#2239#0" expanded="false" />
+            <element signature="e#2267#2443#0" expanded="false" />
+            <element signature="e#2502#2702#0" expanded="false" />
+            <element signature="e#2797#3159#0" expanded="false" />
+            <element signature="e#3224#3270#0" expanded="false" />
+            <element signature="e#3313#3382#0" expanded="false" />
+            <element signature="e#3606#6780#0" expanded="false" />
+            <element signature="e#8340#9319#0" expanded="false" />
+            <element signature="e#9537#10827#0" expanded="false" />
+            <element signature="e#10890#11129#0" expanded="false" />
+            <element signature="e#11274#11677#0" expanded="false" />
+            <element signature="e#12481#12740#0" expanded="false" />
             <element signature="n#!!block;n#reqCoinAPI#0" expanded="false" />
             <element signature="n#!!block;n#saveCoinValue#0" expanded="false" />
           </folding>
@@ -743,18 +728,18 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#1820#2172#0" expanded="false" />
-            <element signature="e#2200#2376#0" expanded="false" />
-            <element signature="e#2435#2635#0" expanded="false" />
-            <element signature="e#2730#3092#0" expanded="false" />
-            <element signature="e#3157#3203#0" expanded="false" />
-            <element signature="e#3246#3315#0" expanded="false" />
-            <element signature="e#3539#6713#0" expanded="false" />
-            <element signature="e#8273#9252#0" expanded="false" />
-            <element signature="e#9470#10760#0" expanded="false" />
-            <element signature="e#10823#11062#0" expanded="false" />
-            <element signature="e#11207#11610#0" expanded="false" />
-            <element signature="e#12414#12673#0" expanded="false" />
+            <element signature="e#1887#2239#0" expanded="false" />
+            <element signature="e#2267#2443#0" expanded="false" />
+            <element signature="e#2502#2702#0" expanded="false" />
+            <element signature="e#2797#3159#0" expanded="false" />
+            <element signature="e#3224#3270#0" expanded="false" />
+            <element signature="e#3313#3382#0" expanded="false" />
+            <element signature="e#3606#6780#0" expanded="false" />
+            <element signature="e#8340#9319#0" expanded="false" />
+            <element signature="e#9537#10827#0" expanded="false" />
+            <element signature="e#10890#11129#0" expanded="false" />
+            <element signature="e#11274#11677#0" expanded="false" />
+            <element signature="e#12481#12740#0" expanded="false" />
             <element signature="n#!!block;n#reqCoinAPI#0" expanded="false" />
             <element signature="n#!!block;n#saveCoinValue#0" expanded="false" />
           </folding>
@@ -794,18 +779,18 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#1820#2172#0" expanded="false" />
-            <element signature="e#2200#2376#0" expanded="false" />
-            <element signature="e#2435#2635#0" expanded="false" />
-            <element signature="e#2730#3092#0" expanded="false" />
-            <element signature="e#3157#3203#0" expanded="false" />
-            <element signature="e#3246#3315#0" expanded="false" />
-            <element signature="e#3539#6713#0" expanded="false" />
-            <element signature="e#8273#9252#0" expanded="false" />
-            <element signature="e#9470#10760#0" expanded="false" />
-            <element signature="e#10823#11062#0" expanded="false" />
-            <element signature="e#11207#11610#0" expanded="false" />
-            <element signature="e#12414#12673#0" expanded="false" />
+            <element signature="e#1887#2239#0" expanded="false" />
+            <element signature="e#2267#2443#0" expanded="false" />
+            <element signature="e#2502#2702#0" expanded="false" />
+            <element signature="e#2797#3159#0" expanded="false" />
+            <element signature="e#3224#3270#0" expanded="false" />
+            <element signature="e#3313#3382#0" expanded="false" />
+            <element signature="e#3606#6780#0" expanded="false" />
+            <element signature="e#8340#9319#0" expanded="false" />
+            <element signature="e#9537#10827#0" expanded="false" />
+            <element signature="e#10890#11129#0" expanded="false" />
+            <element signature="e#11274#11677#0" expanded="false" />
+            <element signature="e#12481#12740#0" expanded="false" />
             <element signature="n#!!block;n#reqCoinAPI#0" expanded="false" />
             <element signature="n#!!block;n#saveCoinValue#0" expanded="false" />
           </folding>
@@ -845,18 +830,18 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#1820#2172#0" expanded="false" />
-            <element signature="e#2200#2376#0" expanded="false" />
-            <element signature="e#2435#2635#0" expanded="false" />
-            <element signature="e#2730#3092#0" expanded="false" />
-            <element signature="e#3157#3203#0" expanded="false" />
-            <element signature="e#3246#3315#0" expanded="false" />
-            <element signature="e#3539#6713#0" expanded="false" />
-            <element signature="e#8273#9252#0" expanded="false" />
-            <element signature="e#9470#10760#0" expanded="false" />
-            <element signature="e#10823#11062#0" expanded="false" />
-            <element signature="e#11207#11610#0" expanded="false" />
-            <element signature="e#12414#12673#0" expanded="false" />
+            <element signature="e#1887#2239#0" expanded="false" />
+            <element signature="e#2267#2443#0" expanded="false" />
+            <element signature="e#2502#2702#0" expanded="false" />
+            <element signature="e#2797#3159#0" expanded="false" />
+            <element signature="e#3224#3270#0" expanded="false" />
+            <element signature="e#3313#3382#0" expanded="false" />
+            <element signature="e#3606#6780#0" expanded="false" />
+            <element signature="e#8340#9319#0" expanded="false" />
+            <element signature="e#9537#10827#0" expanded="false" />
+            <element signature="e#10890#11129#0" expanded="false" />
+            <element signature="e#11274#11677#0" expanded="false" />
+            <element signature="e#12481#12740#0" expanded="false" />
             <element signature="n#!!block;n#reqCoinAPI#0" expanded="false" />
             <element signature="n#!!block;n#saveCoinValue#0" expanded="false" />
           </folding>
@@ -948,29 +933,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="415">
-          <caret line="259" column="10" lean-forward="true" selection-start-line="259" selection-start-column="10" selection-end-line="259" selection-end-column="10" />
-          <folding>
-            <element signature="e#1820#2172#0" expanded="false" />
-            <element signature="e#2200#2376#0" expanded="false" />
-            <element signature="e#2435#2635#0" expanded="false" />
-            <element signature="e#2730#3092#0" expanded="false" />
-            <element signature="e#3157#3203#0" expanded="false" />
-            <element signature="e#3246#3315#0" expanded="false" />
-            <element signature="e#3539#6713#0" expanded="false" />
-            <element signature="e#8273#9252#0" expanded="false" />
-            <element signature="e#9470#10760#0" expanded="false" />
-            <element signature="e#10823#11062#0" expanded="false" />
-            <element signature="e#11207#11610#0" expanded="false" />
-            <element signature="e#12414#12673#0" expanded="false" />
-            <element signature="n#!!block;n#reqCoinAPI#0" expanded="false" />
-            <element signature="n#!!block;n#saveCoinValue#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/models/account.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -989,19 +951,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/components/api-func/handle-action.js">
+    <entry file="file://$PROJECT_DIR$/models/posts.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="2" lean-forward="true" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="2" />
+        <state relative-caret-position="170">
+          <caret line="10" column="3" lean-forward="true" selection-start-line="10" selection-start-column="3" selection-end-line="10" selection-end-column="3" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/posts.js">
+    <entry file="file://$PROJECT_DIR$/components/api-func/handle-action.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="19" lean-forward="false" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
+        <state relative-caret-position="102">
+          <caret line="6" column="17" lean-forward="false" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/components/api-func/confirm-email.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="21" lean-forward="false" selection-start-line="3" selection-start-column="21" selection-end-line="3" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="63" lean-forward="false" selection-start-line="17" selection-start-column="63" selection-end-line="17" selection-end-column="63" />
+          <folding>
+            <element signature="e#1887#2239#0" expanded="false" />
+            <element signature="e#2267#2443#0" expanded="false" />
+            <element signature="e#2502#2702#0" expanded="false" />
+            <element signature="e#2797#3159#0" expanded="false" />
+            <element signature="e#3224#3270#0" expanded="false" />
+            <element signature="e#3313#3382#0" expanded="false" />
+            <element signature="e#3606#6780#0" expanded="false" />
+            <element signature="e#8340#9319#0" expanded="false" />
+            <element signature="e#9537#10827#0" expanded="false" />
+            <element signature="e#10890#11129#0" expanded="false" />
+            <element signature="e#11274#11677#0" expanded="false" />
+            <element signature="e#12481#12740#0" expanded="false" />
+            <element signature="n#!!block;n#reqCoinAPI#0" expanded="false" />
+            <element signature="n#!!block;n#saveCoinValue#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
