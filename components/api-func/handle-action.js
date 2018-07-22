@@ -9,8 +9,7 @@ module.exports = function(request,response,error){
             postId: "",
             postType: "",
             parentId: "",//Optional
-            userId: "",
-            reactionType: ""
+            userId: ""
         }
      */
     try{
@@ -23,7 +22,7 @@ module.exports = function(request,response,error){
             console.log(data);
 
             if(data.length < 1){
-                PostSchema.type = body.postType;
+                PostSchema.type = action;
                 PostSchema.created = moment().valueOf();
                 PostSchema.lastUpdated = moment().valueOf();
                 PostSchema.parentId = body.parentId || '';
@@ -35,7 +34,6 @@ module.exports = function(request,response,error){
                 PostSchema._id = postId;
                 PostSchema.save(function (postError,insertedData) {
                     console.log(insertedData);
-                    debugger;
                     if(err){
                         response.send({err:err, isSuccess: false})
                     }
@@ -45,8 +43,8 @@ module.exports = function(request,response,error){
                 });
             }else{
                 data.reactions[body.userId] = {
-                    lastUpdated: new Date(),
-                    reactionType: body.reactionType
+                    lastUpdated: moment().valueOf(),
+                    reactionType: action
                 };
                 data.save(function(err){
                     if(err){
