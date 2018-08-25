@@ -203,7 +203,7 @@ router.route('/signup')
             }else{
                 response.json({
                     message: 'Email Already Registered!',
-                    isSuccess: true
+                    isSuccess: false
                 })
             }
             if(accountError){
