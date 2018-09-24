@@ -2,6 +2,7 @@
  * Created by harshalcarpenter on 11/24/17.
  */
 var express = require('express'),
+    bcrypt = require('bcrypt'),
     path = require('path'),
     app = express(),
     bodyParser = require('body-parser'),
@@ -18,6 +19,7 @@ var express = require('express'),
     handleAction = require("./components/api-func/handle-action"),
     getAllReactions = require('./components/api-func/user-reaction'),
     UserInfoAPI = require('./components/api-func/user-info'),
+    cryptPass = require('./components/functions/crypt-pass'),
     coinValInterval = setInterval(function () {
         getCoinValue("eth");
         getCoinValue("btc");
@@ -29,11 +31,12 @@ if(!process.env.MONGODB_URI){
 
     //Initiate Mail Object 
     mailObject = mailObject(config.gmailPass);
-
-    baseUrl = 'http://localhost:8000'
+    baseUrl = 'http://localhost:8000';
+    saltRounds = config.saltRounds || 6;
 }else{
     mailObject = mailObject(process.env.GMAIL_PASS);
     baseUrl = 'http://www.cryptonthus.com';
+    saltRounds = process.env.BCRYPT_VAR;
 }
 
 //Mongo DB connect
@@ -136,82 +139,95 @@ router.route('/signup')
         var bodyJson = request.body,
             AccountSchema = new Account();
         
-        AccountSchema.email     = bodyJson.email;
-        AccountSchema.password  = bodyJson.password;
-        AccountSchema.pin       = bodyJson.pin || "";
-        AccountSchema.fname     = bodyJson.fname || "";
-        AccountSchema.lname     = bodyJson.lname || "";
-        AccountSchema.date      = moment().valueOf();
-        AccountSchema.lastUpdate = moment().valueOf();
-        AccountSchema.emailConfirm = false;
+        AccountSchema.email         = bodyJson.email;
+        AccountSchema.password      = bodyJson.password;
+        AccountSchema.pin           = bodyJson.pin || "";
+        AccountSchema.fname         = bodyJson.fname || "";
+        AccountSchema.lname         = bodyJson.lname || "";
+        AccountSchema.date          = moment().valueOf();
+        AccountSchema.lastUpdate    = moment().valueOf();
+        AccountSchema.emailConfirm  = false;
 
         //Find if email already exists
         Account.findByEmail(bodyJson.email,function (accountError,data) {
 
             //If Email not found..
             if(data.length === 0){
-
-                //Account Schema save if not found in emails
-                AccountSchema.save(function (accountSchemaError,newInsertedData) {
-
-                    var portfolioSchema = new PSchema();
-
-                    if(accountSchemaError){
-                        response.send({
-                            "error": accountSchemaError,
-                            isSuccess: false
-                        });
+                bcrypt.genSalt(saltRounds, function(err, salt) {
+                    if(err){
+                        return false;
                     }
+                    bcrypt.hash(AccountSchema.password, salt, function(err, hash) {
+                        
+                        AccountSchema.password = hash;
 
-                    //Set Portfolio and save
-                    portfolioSchema.date = moment().valueOf();
-                    portfolioSchema.userId = newInsertedData._id;
-                    portfolioSchema.coins = [];
+                        AccountSchema.save(function (accountSchemaError,newInsertedData) {
 
-                    portfolioSchema.save(function (portfolioSchemaError,data) {
+                            var portfolioSchema = new PSchema();
 
-                        var newUserData = newInsertedData._doc;
-
-                        mailObject.sendMail({
-                            from: "Cryptonthus <support@cryptonthus.com>",
-                            to: newUserData.email, 
-                            subject: "Cryptonthus - Confirm Email", 
-                            text: "", 
-                            link: "<a href='"+baseUrl+"/confirm-email/"+newInsertedData._id+"'>Confirmation Link</a>",
-                            html: "",
-                            type: "confirmEmail"
-                        });
-
-                        if(portfolioSchemaError){
-                            response.send({
-                                "error"     : portfolioSchemaError,
-                                isSuccess   : false
-                            });
-                        }
-
-                        response.json({
-                            message: 'Value Saved',
-                            isSuccess: true,
-                            data:{
-                                fname: newUserData.fname,
-                                lname: newUserData.lname,
-                                message: "Request Successful",
-                                userId: newUserData._id
+                            if(accountSchemaError){
+                                response.send({
+                                    "error": accountSchemaError,
+                                    isSuccess: false
+                                });
+                                return;
                             }
-                        });
+
+                            //Set Portfolio and save
+                            portfolioSchema.date = moment().valueOf();
+                            portfolioSchema.userId = newInsertedData._id;
+                            portfolioSchema.coins = [];
+
+                            portfolioSchema.save(function (portfolioSchemaError,data) {
+
+                                var newUserData = newInsertedData._doc;
+
+                                mailObject.sendMail({
+                                    from: "Cryptonthus <support@cryptonthus.com>",
+                                    to: newUserData.email, 
+                                    subject: "Cryptonthus - Confirm Email", 
+                                    text: "", 
+                                    link: "<a href='"+baseUrl+"/confirm-email/"+newInsertedData._id+"'>Confirmation Link</a>",
+                                    html: "",
+                                    type: "confirmEmail"
+                                });
+
+                                if(portfolioSchemaError){
+                                    response.send({
+                                        "error"     : portfolioSchemaError,
+                                        isSuccess   : false
+                                    });
+                                    return;
+                                }
+
+                                response.json({
+                                    message: 'Value Saved',
+                                    isSuccess: true,
+                                    data:{
+                                        fname: newUserData.fname,
+                                        lname: newUserData.lname,
+                                        message: "Request Successful",
+                                        userId: newUserData._id
+                                    }
+                                });
+                            });
+                        })
                     });
-                })
+                });
+                
             }else{
                 response.json({
                     message: 'Email Already Registered!',
                     isSuccess: false
                 })
+                return;
             }
             if(accountError){
                 response.send({
                     error: accountError, 
                     isSuccess: false
-                })
+                });
+                return;
             }
         });
     });
@@ -229,6 +245,7 @@ router.route('/userInfo/:id')
                         isSuccess: false,
                         error: err
                     })
+                    return;
                 }
 
                 if(data.length === 0){
@@ -239,24 +256,26 @@ router.route('/userInfo/:id')
                         isSuccess: false
                     });
                 }else{
-                    if(req.body.password === data[0].password){
-                        res.json({
-                            data:{
-                                fname: data[0].fname,
-                                lname: data[0].lname,
-                                message: "Request Successful",
-                                userId: data[0]._id
-                            },
-                            isSuccess: true
-                        });
-                    }else{
-                        res.json({
-                            data:{
-                                message: "Password incorrect!"
-                            },
-                            isSuccess: false
-                        });
-                    }
+                    bcrypt.compare(req.body.password, data[0].password, function(err, res) {
+                        if(res){
+                            res.json({
+                                data:{
+                                    fname: data[0].fname,
+                                    lname: data[0].lname,
+                                    message: "Request Successful",
+                                    userId: data[0]._id
+                                },
+                                isSuccess: true
+                            });
+                        }else{
+                            res.json({
+                                data:{
+                                    message: "Password incorrect!"
+                                },
+                                isSuccess: false
+                            });
+                        }
+                    });
                 }
             })
         })
@@ -415,6 +434,7 @@ router.route('/user-reaction/:userId')
 //Confirming Email
 router.route('/confirm-email/:id')
       .post( confirmEmailFunc );
+
 
 //Registering our routes for api
 app.use('/api',router);
