@@ -16,6 +16,7 @@ var express = require('express'),
     baseUrl = "",
     confirmEmailFunc = require("./components/api-func/confirm-email"),
     handleAction = require("./components/api-func/handle-action"),
+    getAllReactions = require('./components/api-func/user-reaction'),
     UserInfoAPI = require('./components/api-func/user-info'),
     coinValInterval = setInterval(function () {
         getCoinValue("eth");
@@ -203,7 +204,7 @@ router.route('/signup')
             }else{
                 response.json({
                     message: 'Email Already Registered!',
-                    isSuccess: true
+                    isSuccess: false
                 })
             }
             if(accountError){
@@ -408,8 +409,12 @@ router.route('/get-values/:type')
 router.route('/action/:type')
     .post( handleAction );
 
+router.route('/user-reaction/:userId')
+    .post( getAllReactions )
+
 //Confirming Email
-router.route('/confirm-email/:id').post( confirmEmailFunc );
+router.route('/confirm-email/:id')
+      .post( confirmEmailFunc );
 
 //Registering our routes for api
 app.use('/api',router);

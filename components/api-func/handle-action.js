@@ -22,14 +22,14 @@ module.exports = function(request,response,error){
             console.log(data);
 
             if(data.length < 1){
-                PostSchema.type = action;
+                PostSchema.type = body.type;
                 PostSchema.created = moment().valueOf();
                 PostSchema.lastUpdated = moment().valueOf();
                 PostSchema.parentId = body.parentId || '';
                 PostSchema.reactions = {};
                 PostSchema.reactions[body.userId] = {
                     lastUpdated: moment().valueOf(),
-                    reactionType: body.reactionType
+                    reactionType: action
                 };
                 PostSchema._id = postId;
                 PostSchema.save(function (postError,insertedData) {
@@ -42,11 +42,14 @@ module.exports = function(request,response,error){
                     });
                 });
             }else{
-                data.reactions[body.userId] = {
+                
+                data[0]._doc.reactions[body.userId] = {
                     lastUpdated: moment().valueOf(),
                     reactionType: action
                 };
-                data.save(function(err){
+                let dataSchema = new Post(data[0]);
+                dataSchema._id = postId;
+                dataSchema.save(function(err){
                     if(err){
                         response.send({err:err, isSuccess: false})
                     }
