@@ -235,10 +235,10 @@ router.route('/signup')
 
 //Get/Update/Delete userInfo
 router.route('/userInfo/:id')
-        .post(function(req,res){
+        .post(function(req,apiResponse){
             Account.findByEmail(req.body.email, function (err,data) {
                 if(err){
-                    res.send({
+                    apiResponse.send({
                         data:{
                             message: "Error Encountered"
                         },
@@ -249,16 +249,16 @@ router.route('/userInfo/:id')
                 }
 
                 if(data.length === 0){
-                    res.json({
+                    apiResponse.json({
                         data:{
                             message: "Email or Password incorrect"
                         },
                         isSuccess: false
                     });
                 }else{
-                    bcrypt.compare(req.body.password, data[0].password, function(err, res) {
-                        if(res){
-                            res.json({
+                    bcrypt.compare(req.body.password, data[0].password, function(err, bcryptResponse) {
+                        if(bcryptResponse){
+                            apiResponse.json({
                                 data:{
                                     fname: data[0].fname,
                                     lname: data[0].lname,
@@ -268,7 +268,7 @@ router.route('/userInfo/:id')
                                 isSuccess: true
                             });
                         }else{
-                            res.json({
+                            apiResponse.json({
                                 data:{
                                     message: "Password incorrect!"
                                 },
